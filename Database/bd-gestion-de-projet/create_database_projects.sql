@@ -11,11 +11,19 @@ CREATE TABLE projet (
     date_fin DATE NULL,
     statut VARCHAR(10) NOT NULL DEFAULT 'EN_COURS' CHECK (statut IN ('EN_COURS', 'TERMINE'))
  );
-
+-- INITIALISATION DE LA TABLE projet AVEC DES DONNEES DE TEST
 INSERT INTO projet (nom, description_projet, budget, date_debut, date_fin, statut)
-VALUES ('communicus', 'realisation de plateforme de communication entre collegues', 44.34, '2026-01-01', NULL, 'EN_COURS'),
-    ('optimus', 'mise en place des outils pour optimiser le developpement', 100.00, '2026-02-01', NULL, 'EN_COURS'),
-    ('networkus', 'creation des espaces de networking en ligne pour directeurs et proprietaires des entreprises', 200.00, '2026-03-01', NULL, 'EN_COURS');
+VALUES
+    ('Communicus', 'TEST: plateforme de communication interne pour equipes', 5000.00, '2026-01-01', NULL, 'EN_COURS'),
+    ('Optimus', 'TEST: outils et process pour optimiser le cycle de dev', 12000.00, '2026-02-01', NULL, 'EN_COURS'),
+    ('Networkus', 'TEST: espace de networking en ligne pour dirigeants', 8000.00, '2026-03-01', NULL, 'EN_COURS'),
+    ('Atlas', 'TEST: refonte infrastructure et migration data', 15000.00, '2025-05-01', '2026-02-28', 'TERMINE'),
+    ('Helios', 'TEST: creation de portail clients et API', 20000.00, '2026-04-15', NULL, 'EN_COURS'),
+    ('Aurora', 'TEST: prototype mobile cross-platform', 7500.00, '2026-06-01', NULL, 'EN_COURS'),
+    ('Borealis', 'TEST: campagne marketing digital et analytics', 3000.00, '2026-07-01', NULL, 'EN_COURS'),
+    ('Titan', 'TEST: proof-of-concept lourd et optimisation perf', 50000.00, '2025-01-10', '2025-12-31', 'TERMINE'),
+    ('Mercury', 'TEST: integration systemes tiers et sync temps reel', 9500.00, '2026-05-20', NULL, 'EN_COURS'),
+    ('Vega', 'TEST: prototype UI/UX et tests utilisateurs', 4200.00, '2026-08-01', NULL, 'EN_COURS');
 
 
 -- CREATION ET INITIALISATION DE LA TABLE mouvement 
@@ -30,8 +38,26 @@ CREATE TABLE mouvement (
     projet_id INT NOT NULL,
     CONSTRAINT fk_mouv_projet FOREIGN KEY (projet_id) REFERENCES projet (id)
  );
--- CREATE INDEX idx_mouv_projet ON mouvement (projet_id);
-
+-- INITIALISATION DE LA TABLE mouvement AVEC DES DONNEES DE TEST
 INSERT INTO mouvement (nom, libelle, type_mouvement, montant, date_mouvement, description_mouvement, projet_id)
-VALUES ('financement1', 'libelle1', 'ENTREE', 100.00, '2026-01-02', 'description1', 1),
-       ('depense pour serveurs', 'libelle2', 'SORTIE', 50.00, '2026-03-03', 'description2', 1);
+VALUES
+    ('apport_initial', 'TEST: apport initial projet Communicus', 'ENTREE', 5000.00, '2026-01-02', 'TEST: financement seed', 1),
+    ('achat_serveurs', 'TEST: achat serveurs pour infra', 'SORTIE', 1200.00, '2026-01-15', 'TEST: depense infrastructure', 1),
+    ('facture_conseil', 'TEST: prestation conseil optimisation', 'SORTIE', 2000.00, '2026-02-20', 'TEST: facture prestataire', 2),
+    ('subvention', 'TEST: subvention publique', 'ENTREE', 8000.00, '2026-03-10', 'TEST: subvention projet Networkus', 3),
+    ('licences', 'TEST: licences logicielles annuelles', 'SORTIE', 1500.00, '2026-03-25', 'TEST: depense licences', 3),
+    ('paiement_client', 'TEST: reglement client final', 'ENTREE', 15000.00, '2026-02-28', 'TEST: paiement projet Atlas', 4),
+    ('externalisation', 'TEST: sous-traitance dev', 'SORTIE', 4000.00, '2026-05-10', 'TEST: depense sous-traitant', 5),
+    ('campagne_pub', 'TEST: achat media campagne', 'SORTIE', 900.00, '2026-07-15', 'TEST: depense marketing', 7),
+    ('partenariat', 'TEST: apport partenaire strategic', 'ENTREE', 10000.00, '2026-06-05', 'TEST: financement Aurora', 6),
+    ('integration_frais', 'TEST: frais d integration API tierce', 'SORTIE', 600.00, '2026-06-20', 'TEST: depense integration', 9);
+
+-- CALCUL DU TOTAL DES ENTREES 
+SELECT SUM(montant) AS total_entrees
+FROM mouvement
+WHERE type_mouvement = 'ENTREE';
+
+-- CALCUL DU TOTAL DES SORTIES
+SELECT SUM(montant) AS total_sorties
+FROM mouvement
+WHERE type_mouvement = 'SORTIE';
