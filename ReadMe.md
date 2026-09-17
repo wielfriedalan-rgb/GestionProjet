@@ -1,0 +1,1 @@
+pour tester la connectivite avec la base de donnee, la classe TestConnection dans le package dao a ete cree et affiche les composantes d'un projet dans la base de donnee de maniere aleatoire.
