@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+}
+
+h1{
+    text-align: center;
+    color: orangered;
+}
+    
+h2{
+    text-align: center;
+}
+    
