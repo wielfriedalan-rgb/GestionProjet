@@ -1,6 +1,6 @@
 package entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Projects {
 	
@@ -9,31 +9,48 @@ public class Projects {
 	private String name;
 	private double budget;
 	private String description;
-	private Date startDate = new Date();
-	private Date endDate = new Date();
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private Statut statut;
 	
 //	Declaratioon de constructeur de classe Projects
-	public Projects(int id, String name, double budget, String description, Date startDate, Date endDate, Statut statut) {
+	public Projects(int id, String name, double budget, String description, LocalDate startDate, LocalDate endDate, Statut statut) {
 		this.setId(id);
 		this.setName(name);
 		this.setBudget(budget);
 		this.setDescription(description);
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
+		this.setStatut(statut);
 	}
-	
-	public Projects(String name, double budget, String description, Date startDate, Date endDate, Statut statut) {
+	public Projects(String name, double budget, String description, LocalDate startDate, LocalDate endDate, Statut statut) {
 		this.setName(name);
 		this.setBudget(budget);
 		this.setDescription(description);
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
+		this.setStatut(statut);
+	}
+	public Projects(String name, double budget, String description, LocalDate startDate, Statut statut) {
+		this.setName(name);
+		this.setBudget(budget);
+		this.setDescription(description);
+		this.setStartDate(startDate);
+		this.setStatut(statut);
+	}
+	public Projects(String name, double budget, String description, LocalDate startDate) {
+		this.setName(name);
+		this.setBudget(budget);
+		this.setDescription(description);
+		this.setStartDate(startDate);
 	}
 	public Projects(String name, double budget, String description) {
 		this.setName(name);
 		this.setBudget(budget);
 		this.setDescription(description);
+	}
+	public Projects(int id) {
+		this.setId(id);
 	}
 	
 //	Declaration des Getters et Setters	
@@ -65,17 +82,17 @@ public class Projects {
 		this.description = description;
 	}
 	
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 	
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	

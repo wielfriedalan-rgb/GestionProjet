@@ -22,7 +22,7 @@ public class ProjectTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		HttpSession session = request.getSession(true);
 		System.out.println(" dans le doGet ====================");
-		request.getRequestDispatcher("/projectTestServlet.jsp").forward(request, response);
+		request.getRequestDispatcher("/projectTest.jsp").forward(request, response);
 	}
 
 	/**

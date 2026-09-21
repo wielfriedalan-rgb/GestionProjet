@@ -1,34 +1,37 @@
 package entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 public class Movements {
 	
 	private int id;
 	private int projectId;
+	private String name;
 	private String libelle;
 	private double montant;
 	private TypeMovement type;
-	private Date date = new Date();
+	private LocalDate date;
 	private String description;
 	
-	public Movements(int id, int projectId, String libelle, double montant, TypeMovement type, Date date, String description) {
+	public Movements(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description, int projectId) {
 		this.setId(id);
-		this.setProjectId(projectId);
+		this.setName(name);
 		this.setLibelle(libelle);
-		this.setMontant(montant);
 		this.setType(type);
+		this.setMontant(montant);
 		this.setDate(date);
 		this.setDescription(description);
-	}
-	public Movements(int projectId, String libelle, double montant, TypeMovement type, Date dateMovement, String description) {
 		this.setProjectId(projectId);
+	}
+	public Movements(String name, String libelle, TypeMovement type, double montant,  LocalDate dateMovement, String description, int projectId) {
+		this.setName(name);
 		this.setLibelle(libelle);
-		this.setMontant(montant);
 		this.setType(type);
+		this.setMontant(montant);
 		this.setDate(dateMovement);
 		this.setDescription(description);
+		this.setProjectId(projectId);
 	}
 	
 	public int getId() {
@@ -43,6 +46,13 @@ public class Movements {
 	}
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getLibelle() {
@@ -66,10 +76,10 @@ public class Movements {
 		this.montant = montant;
 	}
 	
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	
