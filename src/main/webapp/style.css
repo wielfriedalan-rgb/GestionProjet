@@ -1,15 +1,187 @@
 @charset "UTF-8";
 
-*{
-	margin: 0;
+* {
+    box-sizing: border-box;
+    margin: 0;
 }
 
-h1{
+body {
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* ===== Général (index.html) ===== */
+
+h1 {
     text-align: center;
     color: orangered;
+    margin: 0 auto 20px;
+    max-width: 520px;
 }
-    
-h2{
+
+h3 {
+    max-width: 700px;
+    margin: 0 auto 12px;
     text-align: center;
 }
-    
+
+p {
+    max-width: 700px;
+    margin: 0 auto 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+ul {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+a {
+    color: orangered;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Formulaire (projectCreate.jsp) ===== */
+
+form {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+form br {
+    display: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #d6dbe1;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #fff;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    background-color: orangered;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s ease;
+    margin-top: 8px;
+}
+
+input[type="submit"]:hover {
+    background: rgb(255, 97, 40);
+    transition: 0.3s;
+}
+
+#errorMessage {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: #fff2f2;
+    border: 1px solid #f5b7b1;
+    color: #b42318;
+    font-size: 14px;
+    font-weight: 600;
+    display: none;
+}
+
+#errorMessage:not(:empty) {
+    display: block;
+}
+
+/* ===== Liste des projets (projectList.jsp) ===== */
+
+.project-table {
+    width: 100%;
+    max-width: 95%;
+    margin: 18px auto 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(12, 24, 48, 0.06);
+    font-size: 15px;
+}
+
+.project-table thead th {
+    background: orangered;
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 16px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.project-table tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f4f8;
+}
+
+.project-table tbody tr:nth-child(even) {
+    background: #fbfdff;
+}
+
+.project-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.project-actions {
+    max-width: 90%;
+    margin: 12px auto 0;
+    text-align: right;
+}
+
+.project-create {
+    display: inline-block;
+    background: orangered;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.project-create:hover {
+    background: rgb(255, 97, 40);
+    transition: 0.3s;
+}
