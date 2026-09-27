@@ -24,12 +24,21 @@ public class Movements {
 		this.setDescription(description);
 		this.setProjectId(projectId);
 	}
-	public Movements(String name, String libelle, TypeMovement type, double montant,  LocalDate dateMovement, String description, int projectId) {
+	public Movements(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description) {
+		this.setId(id);
 		this.setName(name);
 		this.setLibelle(libelle);
 		this.setType(type);
 		this.setMontant(montant);
-		this.setDate(dateMovement);
+		this.setDate(date);
+		this.setDescription(description);
+	}
+	public Movements(String name, String libelle, TypeMovement type, double montant,  LocalDate date, String description, int projectId) {
+		this.setName(name);
+		this.setLibelle(libelle);
+		this.setType(type);
+		this.setMontant(montant);
+		this.setDate(date);
 		this.setDescription(description);
 		this.setProjectId(projectId);
 	}
@@ -83,7 +92,7 @@ public class Movements {
 		this.date = date;
 	}
 	
-	public String getDescriptionMovement() {
+	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {

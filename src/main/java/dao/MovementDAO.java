@@ -74,7 +74,7 @@ public class MovementDAO {
 			statement.setString(3, movement.getType().name());
 			statement.setDouble(4, movement.getMontant());
 			statement.setDate(5, Date.valueOf(movement.getDate()));
-			statement.setString(6, movement.getDescriptionMovement());
+			statement.setString(6, movement.getDescription());
 			statement.setInt(7, movement.getProjectId());
 			statement.executeUpdate();
 			System.out.println(" ------ Query execute !  ------");
@@ -85,7 +85,7 @@ public class MovementDAO {
 	
 		
 	public static void update(Movements movement) {
-		String sql = "UPDATE mouvement SET nom = ? , libelle = ? , type_mouvement = ? , montant = ? , date_mouvement = ? , description_mouvement = ? , projet_id = ? WHERE id = ?";
+		String sql = "UPDATE mouvement SET nom = ? , libelle = ? , type_mouvement = ? , montant = ? , date_mouvement = ? , description_mouvement = ? WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
 			statement.setString(1, movement.getName());
@@ -93,9 +93,8 @@ public class MovementDAO {
 			statement.setString(3, movement.getType().name());
 			statement.setDouble(4, movement.getMontant());
 			statement.setDate(5, Date.valueOf(movement.getDate()));
-			statement.setString(6, movement.getDescriptionMovement());
-			statement.setInt(7, movement.getProjectId());
-			statement.setInt(8, movement.getId());
+			statement.setString(6, movement.getDescription());
+			statement.setInt(7, movement.getId());
 			statement.executeUpdate();
 			System.out.println(" ------ Query execute !  ------");
 		} catch (SQLException e ) {

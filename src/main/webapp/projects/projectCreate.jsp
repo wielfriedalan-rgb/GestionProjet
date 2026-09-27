@@ -27,6 +27,7 @@
 			<input type="date" id="endDate" name="endDate">
 			<br><br>
 			<input type="submit" value="Créer le projet">
+			<a href="${pageContext.request.contextPath}/projectList" class="btn-annuler">Annuler</a>
 			<div id="errorMessage"></div>
 		</form>
 	</body>

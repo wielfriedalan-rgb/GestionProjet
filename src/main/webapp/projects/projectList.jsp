@@ -11,6 +11,10 @@
 	</head>
 	<body>
 		<h1>Liste des Projets : </h1>
+		<c:if test="${param.deleted=='1'}">
+			<div class="alert-success">Projet supprimer avec succes !!</div>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/index.html" class="btn-retour">← Retour à l'accueil</a>
 		<table class="project-table">
 			<thead>
 				<tr>
@@ -26,25 +30,28 @@
 			<tbody>
 				<c:forEach items="${projects}" var="line">
 					<tr>
-						<td>${line.name}</td>
-						<td>${line.description}</td>
-						<td>${line.budget}</td>
-						<td>${line.statut}</td>
-						<td>${line.startDate}</td>
-						<td>${line.endDate}</td>
-						<td><a href="">Voir details</a></td>
+						<td><c:out value="${line.name}" /></td>
+						<td><c:out value="${line.description}" /></td>
+						<td><c:out value="${line.budget}" /></td>
+						<td>
+							<c:if test="${line.statut=='EN_COURS'}">EN COURS</c:if>
+							<c:if test="${line.statut=='TERMINE'}">TERMINE</c:if>
+						</td>
+						<td><c:out value="${line.startDate}" /></td>
+						<td><c:out value="${line.endDate}" /></td>
+						<td><a href="${pageContext.request.contextPath}/projectDetail?id=${line.id}">Voir details</a></td>
 					</tr>
 				</c:forEach>
 
 				<c:if test="${empty projects}">
 					<tr>
-						<td colspan="6">Aucun projet trouvee ! </td>
+						<td colspan="7">Aucun projet trouvee ! </td>
 					</tr>
 				</c:if>
 			</tbody>
 		</table>
 		<div class="project-actions">
-			<a class="project-create" href="projectCreate">+ Nouveau projet</a>
+			<a class="project-create" href="${pageContext.request.contextPath}/projectCreate">+ Nouveau projet</a>
 		</div>
 	</body>
 </html>

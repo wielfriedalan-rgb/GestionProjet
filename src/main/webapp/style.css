@@ -185,3 +185,84 @@ input[type="submit"]:hover {
     background: rgb(255, 97, 40);
     transition: 0.3s;
 }
+
+.detailsProject p{
+    text-align: left;
+    display: flex;
+    gap: 4px;
+    width: 100%;
+}
+
+.detailsProject p span{
+    flex: 1;
+}
+
+/* ==== Bouton de Retour ==== */
+
+.btn-retour {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background-color: #eef2f7;
+    color: #33475b;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.btn-retour:hover {
+    background-color: #dde5ee;
+    text-decoration: none;
+}
+
+/* ===== Bouton Annuler ===== */
+
+.btn-annuler {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d6dbe1;
+    background-color: #fff;
+    color: #5a6472;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.btn-annuler:hover {
+    background-color: #f4f7fb;
+    text-decoration: none;
+}
+
+
+/* ===== Bandeau de confirmation ====== */
+
+.alert-success {
+    max-width: 520px;
+    margin: 0 auto 20px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: #f0faf3;
+    border: 1px solid #a9dfbf;
+    color: #1e7a34;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.alert-error{
+    max-width: 520px;
+    margin: 0 auto 20px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: #faf0f0;
+    border: 1px solid #dfa9a9;
+    color: #ff0000;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
