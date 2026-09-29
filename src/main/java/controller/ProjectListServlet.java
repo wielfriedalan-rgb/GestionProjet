@@ -10,7 +10,7 @@ import service.ProjectService;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import entity.Projects;
+import entity.Project;
 
 /**
  * Servlet implementation class ProjectListServlet
@@ -24,7 +24,7 @@ public class ProjectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Dans le doGet de ProjectListServlet ======================");
-		ArrayList<Projects> projects = ProjectService.findAllProject();
+		ArrayList<Project> projects = ProjectService.findAllProject();
 		request.setAttribute("projects", projects);
 		request.getRequestDispatcher("/projects/projectList.jsp").forward(request, response);
 	}

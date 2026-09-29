@@ -10,7 +10,7 @@ import service.ProjectService;
 
 import java.io.IOException;
 
-import entity.Projects;
+import entity.Project;
 
 /**
  * Servlet implementation class MovementCreateServlet
@@ -30,7 +30,7 @@ public class MovementCreateServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
-		Projects project = ProjectService.findProjectById(projectId);
+		Project project = ProjectService.findProjectById(projectId);
 		if(project==null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;

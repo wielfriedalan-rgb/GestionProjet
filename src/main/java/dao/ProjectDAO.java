@@ -9,13 +9,13 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
-import entity.Projects;
+import entity.Project;
 import entity.Statut;
 
 public class ProjectDAO {
 	
-	public static ArrayList<Projects> findAll() {
-		ArrayList<Projects> projects = new ArrayList<Projects>();
+	public static ArrayList<Project> findAll() {
+		ArrayList<Project> projects = new ArrayList<Project>();
 		String sql = "SELECT * FROM projet";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -34,7 +34,7 @@ public class ProjectDAO {
 									: null;
 					String statutString = resultSet.getString("statut");
 					Statut statut = Statut.valueOf(statutString);
-					projects.add(new Projects(id, nom, budget, description, startDate, endDate, statut));
+					projects.add(new Project(id, nom, budget, description, startDate, endDate, statut));
 				}
 			}
 			
@@ -46,7 +46,7 @@ public class ProjectDAO {
 	}
 	
 	
-	public static Projects findById(int idt) {
+	public static Project findById(int idt) {
 		String sql = "SELECT * FROM projet WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -65,7 +65,7 @@ public class ProjectDAO {
 									: null;
 					String statutString = resultSet.getString("statut");
 					Statut statut = Statut.valueOf(statutString);
-					return new Projects(id, nom, budget, description, startDate, endDate, statut);
+					return new Project(id, nom, budget, description, startDate, endDate, statut);
 				}
 			}
 			
@@ -76,7 +76,7 @@ public class ProjectDAO {
 	}
 	
 	
-	public static void save(Projects project) {
+	public static void save(Project project) {
 		String sql = "INSERT INTO projet (nom, description_projet, budget, date_debut, date_fin, statut) VALUES (?, ?, ?, ?, ?, ?)";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -98,7 +98,7 @@ public class ProjectDAO {
 	}
 	
 	
-	public static void update(Projects projectUpdate) {
+	public static void update(Project projectUpdate) {
 		String sql = "UPDATE projet SET nom = ?, description_projet = ?, budget = ?, date_debut = ?, date_fin = ?, statut = ? WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");

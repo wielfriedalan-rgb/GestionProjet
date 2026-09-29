@@ -9,7 +9,7 @@ import service.MovementService;
 
 import java.io.IOException;
 
-import entity.Movements;
+import entity.Movement;
 
 /**
  * Servlet implementation class MovementUpdateServlet
@@ -29,7 +29,7 @@ public class MovementUpdateServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
-		Movements movement = MovementService.findMovementById(id);
+		Movement movement = MovementService.findMovementById(id);
 		if(movement==null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;

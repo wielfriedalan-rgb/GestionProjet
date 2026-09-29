@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dao.MovementDAO;
-import entity.Movements;
+import entity.Movement;
 import entity.TypeMovement;
 
 public class MovementService {
 
-	public static ArrayList<Movements> findMovementByProject(int projectId){
+	public static ArrayList<Movement> findMovementByProject(int projectId){
 		return MovementDAO.findByProjects(projectId);
 	}
 	
@@ -17,10 +17,10 @@ public class MovementService {
 		TypeMovement type = TypeMovement.valueOf(typeString);
 		double montant = Double.parseDouble(montantString);
 		LocalDate date = LocalDate.parse(dateString);
-		MovementDAO.save(new Movements(name, libelle, type, montant, date, description, projectId));
+		MovementDAO.save(new Movement(name, libelle, type, montant, date, description, projectId));
 	}
 	
-	public static Movements findMovementById(int id) {
+	public static Movement findMovementById(int id) {
 		return MovementDAO.findById(id);
 	}
 	
@@ -28,11 +28,11 @@ public class MovementService {
 		double montant = Double.parseDouble(montantString);
 		LocalDate date = LocalDate.parse(dateString);
 		TypeMovement type = TypeMovement.valueOf(typeString);
-		MovementDAO.update(new Movements(id, name, libelle, type, montant, date, description));
+		MovementDAO.update(new Movement(id, name, libelle, type, montant, date, description));
 	}
 	
 	public static void deleteMovement(int id) {
 		MovementDAO.delete(id);
 	}
-	
+
 }

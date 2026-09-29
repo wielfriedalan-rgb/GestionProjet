@@ -9,7 +9,7 @@ import service.ProjectService;
 
 import java.io.IOException;
 
-import entity.Projects;
+import entity.Project;
 
 /**
  * Servlet implementation class ProjectDetailServlet
@@ -29,7 +29,7 @@ public class ProjectDetailServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
-		Projects project = ProjectService.findProjectById(id);
+		Project project = ProjectService.findProjectById(id);
 		if(project == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;

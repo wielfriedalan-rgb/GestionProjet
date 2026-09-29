@@ -2,7 +2,7 @@ package entity;
 
 import java.time.LocalDate;
 
-public class Projects {
+public class Project {
 	
 	
 	private int id;
@@ -14,7 +14,7 @@ public class Projects {
 	private Statut statut;
 	
 //	Declaratioon de constructeur de classe Projects
-	public Projects(int id, String name, double budget, String description, LocalDate startDate, LocalDate endDate, Statut statut) {
+	public Project(int id, String name, double budget, String description, LocalDate startDate, LocalDate endDate, Statut statut) {
 		this.setId(id);
 		this.setName(name);
 		this.setBudget(budget);
@@ -23,7 +23,7 @@ public class Projects {
 		this.setEndDate(endDate);
 		this.setStatut(statut);
 	}
-	public Projects(String name, double budget, String description, LocalDate startDate, LocalDate endDate, Statut statut) {
+	public Project(String name, double budget, String description, LocalDate startDate, LocalDate endDate, Statut statut) {
 		this.setName(name);
 		this.setBudget(budget);
 		this.setDescription(description);
@@ -31,25 +31,25 @@ public class Projects {
 		this.setEndDate(endDate);
 		this.setStatut(statut);
 	}
-	public Projects(String name, double budget, String description, LocalDate startDate, Statut statut) {
+	public Project(String name, double budget, String description, LocalDate startDate, Statut statut) {
 		this.setName(name);
 		this.setBudget(budget);
 		this.setDescription(description);
 		this.setStartDate(startDate);
 		this.setStatut(statut);
 	}
-	public Projects(String name, double budget, String description, LocalDate startDate) {
+	public Project(String name, double budget, String description, LocalDate startDate) {
 		this.setName(name);
 		this.setBudget(budget);
 		this.setDescription(description);
 		this.setStartDate(startDate);
 	}
-	public Projects(String name, double budget, String description) {
+	public Project(String name, double budget, String description) {
 		this.setName(name);
 		this.setBudget(budget);
 		this.setDescription(description);
 	}
-	public Projects(int id) {
+	public Project(int id) {
 		this.setId(id);
 	}
 	

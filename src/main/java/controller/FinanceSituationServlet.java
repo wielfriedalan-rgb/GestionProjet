@@ -5,17 +5,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.MovementService;
+import service.FinanceService;
+import service.ProjectService;
 
 import java.io.IOException;
 
-import entity.Movement;
+import entity.Project;
 
 /**
- * Servlet implementation class MovementDetailServlet
+ * Servlet implementation class FinanceSituationServlet
  */
-@WebServlet("/movementDetail")
-public class MovementDetailServlet extends HttpServlet {
+@WebServlet("/financeSituation")
+public class FinanceSituationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -29,13 +30,13 @@ public class MovementDetailServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
-		Movement movement = MovementService.findMovementById(id);
-		if(movement==null) {
+		Project project = ProjectService.findProjectById(id);
+		if(project == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		request.setAttribute("movement", movement);
-		request.getRequestDispatcher("/movements/movementDetail.jsp").forward(request, response);
+		request.setAttribute("project", project);
+		request.setAttribute("finance", FinanceService.financeCalculation(project));
+		request.getRequestDispatcher("/projects/financeSituation.jsp").forward(request, response);
 	}
-
 }

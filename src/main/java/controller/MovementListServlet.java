@@ -11,8 +11,8 @@ import service.ProjectService;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import entity.Movements;
-import entity.Projects;
+import entity.Movement;
+import entity.Project;
 
 /**
  * Servlet implementation class MovementListServlet
@@ -32,12 +32,12 @@ public class MovementListServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
-		Projects project = ProjectService.findProjectById(projectId);
+		Project project = ProjectService.findProjectById(projectId);
 		if(project == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		ArrayList<Movements> movements = MovementService.findMovementByProject(projectId);
+		ArrayList<Movement> movements = MovementService.findMovementByProject(projectId);
 		request.setAttribute("movements", movements);
 		request.setAttribute("project", project);
 		request.getRequestDispatcher("/movements/movementList.jsp").forward(request, response);

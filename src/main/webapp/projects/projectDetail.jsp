@@ -26,6 +26,7 @@
 			<div class="btn-action">
 				<a href="${pageContext.request.contextPath}/projectUpdate?id=${project.id}">Modifier</a> | 
 				<a href="${pageContext.request.contextPath}/movementList?projectId=${project.id}">Voire les mouvements</a> | 
+				<a href="${pageContext.request.contextPath}/financeSituation?id=${project.id}">Situation financiere</a> | 
 				<a href="${pageContext.request.contextPath}/projectDelete?id=${project.id}">Supprimer ce projet</a> | 
 				<a href="${pageContext.request.contextPath}/projectList" class="btn-retour">retour a la liste</a>
 			</div>

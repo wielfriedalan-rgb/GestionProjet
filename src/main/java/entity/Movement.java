@@ -3,7 +3,7 @@ package entity;
 import java.time.LocalDate;
 
 
-public class Movements {
+public class Movement {
 	
 	private int id;
 	private int projectId;
@@ -14,7 +14,7 @@ public class Movements {
 	private LocalDate date;
 	private String description;
 	
-	public Movements(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description, int projectId) {
+	public Movement(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description, int projectId) {
 		this.setId(id);
 		this.setName(name);
 		this.setLibelle(libelle);
@@ -24,7 +24,7 @@ public class Movements {
 		this.setDescription(description);
 		this.setProjectId(projectId);
 	}
-	public Movements(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description) {
+	public Movement(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description) {
 		this.setId(id);
 		this.setName(name);
 		this.setLibelle(libelle);
@@ -33,7 +33,7 @@ public class Movements {
 		this.setDate(date);
 		this.setDescription(description);
 	}
-	public Movements(String name, String libelle, TypeMovement type, double montant,  LocalDate date, String description, int projectId) {
+	public Movement(String name, String libelle, TypeMovement type, double montant,  LocalDate date, String description, int projectId) {
 		this.setName(name);
 		this.setLibelle(libelle);
 		this.setType(type);

@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import entity.Movements;
+import entity.Movement;
 import entity.TypeMovement;
 
 public class MovementDAO {
 
-	public static Movements findById(int idt) {
+	public static Movement findById(int idt) {
 		String sql = "SELECT * FROM mouvement WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -28,7 +28,7 @@ public class MovementDAO {
 					LocalDate date = resultSet.getDate("date_mouvement").toLocalDate();
 					String description = resultSet.getString("description_mouvement");
 					int projectId = resultSet.getInt("projet_id");
-					return new Movements(id, name, libelle, type, montant, date, description, projectId);
+					return new Movement(id, name, libelle, type, montant, date, description, projectId);
 				}
 			}
 			
@@ -39,9 +39,9 @@ public class MovementDAO {
 	}
 	
 	
-	public static ArrayList<Movements> findByProjects(int projectIdt) {
+	public static ArrayList<Movement> findByProjects(int projectIdt) {
 		String sql = "SELECT * FROM mouvement WHERE projet_id = ?";
-		ArrayList<Movements> movements = new ArrayList<Movements>();
+		ArrayList<Movement> movements = new ArrayList<Movement>();
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
 			statement.setInt(1, projectIdt);
@@ -55,7 +55,7 @@ public class MovementDAO {
 					LocalDate date = resultSet.getDate("date_mouvement").toLocalDate();
 					String description = resultSet.getString("description_mouvement");
 					int projectId = resultSet.getInt("projet_id");
-					movements.add( new Movements(id, name, libelle, type, montant, date, description, projectId));
+					movements.add( new Movement(id, name, libelle, type, montant, date, description, projectId));
 				}
 			}
 		} catch(SQLException e) {
@@ -65,7 +65,7 @@ public class MovementDAO {
 	}
 	
 	
-	public static void save(Movements movement) {
+	public static void save(Movement movement) {
 		String sql = "INSERT INTO mouvement (nom, libelle, type_mouvement, montant, date_mouvement, description_mouvement, projet_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -84,7 +84,7 @@ public class MovementDAO {
 	}
 	
 		
-	public static void update(Movements movement) {
+	public static void update(Movement movement) {
 		String sql = "UPDATE mouvement SET nom = ? , libelle = ? , type_mouvement = ? , montant = ? , date_mouvement = ? , description_mouvement = ? WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");

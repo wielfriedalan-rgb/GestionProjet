@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import dao.MovementDAO;
 import dao.ProjectDAO;
-import entity.Projects;
+import entity.Project;
 import entity.Statut;
 
 public class ProjectService {
@@ -21,15 +21,15 @@ public class ProjectService {
 		}
 		Statut statut = Statut.valueOf(statutString);
 		
-		Projects projet = new Projects(name, budget, description, startDate, endDate, statut);
+		Project projet = new Project(name, budget, description, startDate, endDate, statut);
 		ProjectDAO.save(projet);
 	}
 	
-	public static ArrayList<Projects> findAllProject() {
+	public static ArrayList<Project> findAllProject() {
 		return ProjectDAO.findAll();
 	}
 	
-	public static Projects findProjectById(int id) {
+	public static Project findProjectById(int id) {
 		return ProjectDAO.findById(id);
 	}
 	
@@ -41,7 +41,7 @@ public class ProjectService {
 			endDate = LocalDate.parse(endDateString);
 		}
 		Statut statut = Statut.valueOf(statutString);
-		ProjectDAO.update(new Projects(id,name, budget, description, startDate, endDate, statut));
+		ProjectDAO.update(new Project(id,name, budget, description, startDate, endDate, statut));
 	}
 	
 	public static boolean deleteProject(int id) {
