@@ -35,6 +35,6 @@ public class ProjectDetailServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("project", project);
-		request.getRequestDispatcher("/projects/projectDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/projects/projectDetail.jsp").forward(request, response);
 	}
 }

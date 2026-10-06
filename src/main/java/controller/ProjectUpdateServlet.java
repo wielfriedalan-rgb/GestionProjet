@@ -36,7 +36,7 @@ public class ProjectUpdateServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("project", project);
-		request.getRequestDispatcher("/projects/projectUpdate.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/projects/projectUpdate.jsp").forward(request, response);
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class ProjectUpdateServlet extends HttpServlet {
 			}
 			request.setAttribute("project", project);
 			request.setAttribute("error", error);
-			request.getRequestDispatcher("/projects/projectUpdate.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/projects/projectUpdate.jsp").forward(request, response);
 			return;
 		}
 		

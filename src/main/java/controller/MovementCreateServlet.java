@@ -37,7 +37,7 @@ public class MovementCreateServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("project", project);
-		request.getRequestDispatcher("/movements/movementCreate.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/movements/movementCreate.jsp").forward(request, response);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class MovementCreateServlet extends HttpServlet {
 			}
 			request.setAttribute("project", project);
 			request.setAttribute("error", error);
-			request.getRequestDispatcher("/movements/movementCreate.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/movements/movementCreate.jsp").forward(request, response);
 			return;
 		}
 		

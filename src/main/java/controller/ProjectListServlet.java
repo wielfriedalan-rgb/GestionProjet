@@ -26,7 +26,7 @@ public class ProjectListServlet extends HttpServlet {
 		System.out.println("Dans le doGet de ProjectListServlet ======================");
 		ArrayList<Project> projects = ProjectService.findAllProject();
 		request.setAttribute("projects", projects);
-		request.getRequestDispatcher("/projects/projectList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/projects/projectList.jsp").forward(request, response);
 	}
 
 

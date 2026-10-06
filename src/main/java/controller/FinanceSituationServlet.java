@@ -37,6 +37,6 @@ public class FinanceSituationServlet extends HttpServlet {
 		}
 		request.setAttribute("project", project);
 		request.setAttribute("finance", FinanceService.financeCalculation(project));
-		request.getRequestDispatcher("/projects/financeSituation.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/projects/financeSituation.jsp").forward(request, response);
 	}
 }

@@ -22,7 +22,7 @@ public class ProjectCreateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Dans le doGet de ProjectCreateServlet ======================");
-		request.getRequestDispatcher("/projects/projectCreate.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/projects/projectCreate.jsp").forward(request, response);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class ProjectCreateServlet extends HttpServlet {
 		Map<String, String> error = ProjectService.validationProject(name, budgetString, description, startDateString, endDateString, statutString);
 		if(error.size()!=0) {
 			request.setAttribute("error", error);
-			request.getRequestDispatcher("/projects/projectCreate.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/projects/projectCreate.jsp").forward(request, response);
 			return;
 		}
 		

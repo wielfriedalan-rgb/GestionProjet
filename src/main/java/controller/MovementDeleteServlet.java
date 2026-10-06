@@ -35,7 +35,7 @@ public class MovementDeleteServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("movement", movement);
-		request.getRequestDispatcher("/movements/movementDelete.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/movements/movementDelete.jsp").forward(request, response);
 	}
 	
 	@Override

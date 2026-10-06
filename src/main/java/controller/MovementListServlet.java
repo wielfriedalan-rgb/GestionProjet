@@ -40,7 +40,7 @@ public class MovementListServlet extends HttpServlet {
 		ArrayList<Movement> movements = MovementService.findMovementByProject(projectId);
 		request.setAttribute("movements", movements);
 		request.setAttribute("project", project);
-		request.getRequestDispatcher("/movements/movementList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/movements/movementList.jsp").forward(request, response);
 	}
 
 }

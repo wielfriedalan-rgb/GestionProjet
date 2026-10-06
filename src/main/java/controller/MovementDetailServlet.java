@@ -35,7 +35,7 @@ public class MovementDetailServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("movement", movement);
-		request.getRequestDispatcher("/movements/movementDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/movements/movementDetail.jsp").forward(request, response);
 	}
 
 }

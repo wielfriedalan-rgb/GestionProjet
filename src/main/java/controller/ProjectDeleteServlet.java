@@ -35,7 +35,7 @@ public class ProjectDeleteServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("project", project);
-		request.getRequestDispatcher("/projects/projectDelete.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/projects/projectDelete.jsp").forward(request, response);
 	}
 
 	/**
