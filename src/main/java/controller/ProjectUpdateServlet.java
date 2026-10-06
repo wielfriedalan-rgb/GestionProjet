@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import service.ProjectService;
 
 import java.io.IOException;
+import java.util.Map;
 
 import entity.Project;
 
@@ -53,7 +54,22 @@ public class ProjectUpdateServlet extends HttpServlet {
 		String statutString = request.getParameter("statut");
 		String startDateString = request.getParameter("startDate");
 		String endDateString = request.getParameter("endDate");
+		
+		Map<String, String> error = ProjectService.validationProject(name, budgetString, description, startDateString, endDateString, statutString);
+		if(error.size()!=0) {
+			Project project = ProjectService.findProjectById(id);
+			if(project == null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+			request.setAttribute("project", project);
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/projects/projectUpdate.jsp").forward(request, response);
+			return;
+		}
+		
 		ProjectService.updateProject(id, name, budgetString, description, startDateString, endDateString, statutString);
+		
 		response.sendRedirect(request.getContextPath() + "/projectDetail?id=" + id);
 	}
 

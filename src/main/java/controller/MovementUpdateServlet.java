@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import service.MovementService;
 
 import java.io.IOException;
+import java.util.Map;
 
 import entity.Movement;
 
@@ -48,13 +49,28 @@ public class MovementUpdateServlet extends HttpServlet {
 		String montantString = request.getParameter("montant");
 		String dateString = request.getParameter("date");
 		String description = request.getParameter("description");
-		int id;
+		int id, projectId;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
+			projectId = Integer.parseInt(request.getParameter("projectId"));
 		}catch(NumberFormatException e) {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
+		
+		Map<String, String> error = MovementService.validationMovement(id, name, libelle, typeString, montantString, dateString, description, projectId);
+		if(error.size()!=0) {
+			Movement movement = MovementService.findMovementById(id);
+			if(movement==null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+			request.setAttribute("movement", movement);
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/movements/movementUpdate.jsp").forward(request, response);
+			return;
+		}
+		
 		MovementService.updateMovement(id, name, libelle, typeString, montantString, dateString, description);
 		response.sendRedirect(request.getContextPath() + "/movementDetail?id=" + id);
 	}

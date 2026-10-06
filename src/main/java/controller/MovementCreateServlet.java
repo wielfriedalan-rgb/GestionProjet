@@ -9,6 +9,7 @@ import service.MovementService;
 import service.ProjectService;
 
 import java.io.IOException;
+import java.util.Map;
 
 import entity.Project;
 
@@ -56,6 +57,20 @@ public class MovementCreateServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
+		
+		Map<String, String> error = MovementService.validationMovement(-1, name, libelle, typeString, montantString, dateString, description, projectId);
+		if(error.size()!=0) {
+			Project project = ProjectService.findProjectById(projectId);
+			if(project==null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+			request.setAttribute("project", project);
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/movements/movementCreate.jsp").forward(request, response);
+			return;
+		}
+		
 		MovementService.createMovement(name, libelle, typeString, montantString, dateString, description, projectId);
 		response.sendRedirect(request.getContextPath() + "/movementList?projectId=" + projectId);
 	}

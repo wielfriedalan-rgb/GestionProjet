@@ -21,7 +21,7 @@
 			</div>
 			<br>
 			<div>
-				<a href="${pageContext.request.contextPath}/movementUpdate?id=${movement.id}">Modifier ce mouvement</a> | 
+				<a href="${pageContext.request.contextPath}/movementUpdate?id=${movement.id}&projectId=${movement.projectId}">Modifier ce mouvement</a> | 
 				<a href="${pageContext.request.contextPath}/movementDelete?id=${movement.id}&projectId=${movement.projectId}">Supprimer ce mouvement</a> | 
 				<a href="${pageContext.request.contextPath}/movementList?projectId=${movement.projectId}" class="btn-retour">retour a la liste</a>
 			</div>

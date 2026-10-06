@@ -8,8 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import service.ProjectService;
 
 import java.io.IOException;
-
-
+import java.util.Map;
 
 /**
  * Servlet implementation class ProjectCreateServlet
@@ -22,7 +21,6 @@ public class ProjectCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		System.out.println("Dans le doGet de ProjectCreateServlet ======================");
 		request.getRequestDispatcher("/projects/projectCreate.jsp").forward(request, response);
 	}
@@ -31,7 +29,6 @@ public class ProjectCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		System.out.println("Dans le doPost de ProjectCreateServlet ======================");
 		String name = request.getParameter("name");
 		String budgetString = request.getParameter("budget");
@@ -39,6 +36,13 @@ public class ProjectCreateServlet extends HttpServlet {
 		String statutString = request.getParameter("statut");
 		String startDateString = request.getParameter("startDate");
 		String endDateString = request.getParameter("endDate");
+		
+		Map<String, String> error = ProjectService.validationProject(name, budgetString, description, startDateString, endDateString, statutString);
+		if(error.size()!=0) {
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/projects/projectCreate.jsp").forward(request, response);
+			return;
+		}
 		
 		ProjectService.createProject(name, budgetString, description, startDateString, endDateString, statutString);
 		

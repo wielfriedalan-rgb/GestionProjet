@@ -9,7 +9,7 @@
 		<title>Liste des mouvements</title>
 	</head>
 	<body>
-		<h1>Liste des mouvements du projet : ${project.name}</h1>
+		<h1>Liste des mouvements du projet : <c:out value="${project.name}"/></h1>
 		<c:if test="${param.deleted=='1'}">
 			<div class="alert-success">Mouvement supprimer avec succes !!</div>
 		</c:if>
