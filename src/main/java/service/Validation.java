@@ -11,7 +11,7 @@ public class Validation {
 			error.put(field, field + " est obligatoire !");
 			return;
 		}
-		if(value.length()<min) error.put(field, field + " doit avoir minimum " + min + " caracteres !");
+		if(value.length()<min && required) error.put(field, field + " doit avoir minimum " + min + " caracteres !");
 		if(value.length()>max) error.put(field, field + " doit avoir maximum " + max + " caracteres !");
 	}
 

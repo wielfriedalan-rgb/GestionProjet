@@ -45,7 +45,7 @@ public class MovementService {
 				}
 			}
 			if(totalEntrees<totalSorties) {
-				error.put("Le type", "Fonds insuffissants pour effectuer cette sortie");
+				error.put("Le montant", "Fonds insuffissants pour effectuer cette sortie");
 			}
 		}
 		return error;
