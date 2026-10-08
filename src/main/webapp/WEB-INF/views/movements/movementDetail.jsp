@@ -10,6 +10,9 @@
 	</head>
 	<body>
 		<h1>Details du mouvement : <span style="color: rgb(0, 49, 7); max-width: 420px;"><c:out value="${movement.name}"/></span></h1>
+		<c:if test="${param.modified=='1'}">
+			<div class="alert-success">Mouvement modifier avec succes !!</div>
+		</c:if>
 		<div class="detailProject">
 			<div class="detailsProject">
 				<p><span class="label">Nom :</span><span class="value"><c:out value="${movement.name}" /></span></p>
@@ -21,9 +24,9 @@
 			</div>
 			<br>
 			<div>
-				<a href="${pageContext.request.contextPath}/movementUpdate?id=${movement.id}&projectId=${movement.projectId}">Modifier ce mouvement</a> | 
-				<a href="${pageContext.request.contextPath}/movementDelete?id=${movement.id}&projectId=${movement.projectId}">Supprimer ce mouvement</a> | 
-				<a href="${pageContext.request.contextPath}/movementList?projectId=${movement.projectId}" class="btn-retour">retour a la liste</a>
+				<a href="${pageContext.request.contextPath}/movement?page=Update&id=${movement.id}&projectId=${movement.projectId}">Modifier ce mouvement</a> | 
+				<a href="${pageContext.request.contextPath}/movement?page=Delete&id=${movement.id}&projectId=${movement.projectId}">Supprimer ce mouvement</a> | 
+				<a href="${pageContext.request.contextPath}/movement?page=List&projectId=${movement.projectId}" class="btn-retour">retour a la liste</a>
 			</div>
 		</div>
 	</body>

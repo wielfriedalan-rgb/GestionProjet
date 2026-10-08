@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<h1>Nouveau mouvement pour : <span style="color: rgb(0, 49, 7);"><c:out value="${project.name}"/></span></h1>
-		<form action="movementCreate" method="post">
+		<form action="movement?page=Create" method="post">
 			<input type="hidden" name="projectId" value="${project.id}">
 			<label for="name">Nom :</label>
 			<input type="text" id="name" name="name" value="<c:out value='${param.name}'/>">
@@ -37,7 +37,7 @@
 			<div id="errorMessage"><c:if test="${not empty error}">Vous avez entré une ou plusieurs information(s) non correcte. Veuillez vérifier !</c:if></div>
 			<br>
 			<input type="submit" value="Créer le mouvement">
-			<a href="${pageContext.request.contextPath}/movementList?projectId=${project.id}" class="btn-annuler">Annuler</a>
+			<a href="${pageContext.request.contextPath}/movement?page=List&projectId=${project.id}" class="btn-annuler">Annuler</a>
 		</form>
 	</body>
 </html>

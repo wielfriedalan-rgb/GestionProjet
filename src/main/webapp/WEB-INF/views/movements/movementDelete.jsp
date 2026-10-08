@@ -10,12 +10,12 @@
 	</head>
 	<body>
 		<h1>Supprimer le mouvement : <span style="color: rgb(0, 49, 7);"><c:out value="${movement.name}"/></span></h1>
-		<form action="movementDelete" method="post">
+		<form action="movement?page=Delete" method="post">
 			<label>Etes-vous sure de supprimer ce mouvement ? L'action est irreversible.</label>
 			<input type="hidden" name="id" value="${movement.id}">
 			<input type="hidden" name="projectId" value="${movement.projectId}">
 			<input type="submit" value="Supprimer le mouvement">
-			<a href="${pageContext.request.contextPath}/movementDetail?id=${movement.id}" class="btn-annuler">Annuler</a>
+			<a href="${pageContext.request.contextPath}/movement?page=Detail&id=${movement.id}" class="btn-annuler">Annuler</a>
 			<div id="errorMessage"></div>
 		</form>
 	</body>

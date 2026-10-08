@@ -1,8 +1,13 @@
-package service;
+package util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Map;
+
+import dao.MovementDAO;
+import entity.Movement;
+import entity.TypeMovement;
 
 public class Validation {
 
@@ -51,6 +56,24 @@ public class Validation {
 			return null;
 		}
 		return date;
+	}
+	
+	public static void select(Map<String, String> error, TypeMovement type, double montant, int projectId, int id) {
+		if(type==TypeMovement.SORTIE) {
+			ArrayList<Movement> movements = new MovementDAO().findByProjects(projectId);
+			double totalEntrees=0, totalSorties=montant;
+			for(Movement mov : movements) {
+				if(id!=(-1) && id==mov.getId()) continue;
+				if(mov.getType()==TypeMovement.ENTREE) {
+					totalEntrees += mov.getMontant();
+				}else if(mov.getType()==TypeMovement.SORTIE) {
+					totalSorties += mov.getMontant();
+				}
+			}
+			if(totalEntrees<totalSorties) {
+				error.put("Le montant", "Fonds insuffissants pour effectuer cette sortie");
+			}
+		}
 	}
 
 }

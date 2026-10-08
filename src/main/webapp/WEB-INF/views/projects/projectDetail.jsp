@@ -24,11 +24,11 @@
 			</div>
 			<br>
 			<div class="btn-action">
-				<a href="${pageContext.request.contextPath}/projectUpdate?id=${project.id}">Modifier</a> | 
-				<a href="${pageContext.request.contextPath}/movementList?projectId=${project.id}">Voire les mouvements</a> | 
+				<a href="${pageContext.request.contextPath}/project?page=Update&id=${project.id}">Modifier</a> | 
+				<a href="${pageContext.request.contextPath}/movement?page=List&projectId=${project.id}">Voire les mouvements</a> | 
 				<a href="${pageContext.request.contextPath}/financeSituation?id=${project.id}">Situation financiere</a> | 
-				<a href="${pageContext.request.contextPath}/projectDelete?id=${project.id}">Supprimer ce projet</a> | 
-				<a href="${pageContext.request.contextPath}/projectList" class="btn-retour">retour a la liste</a>
+				<a href="${pageContext.request.contextPath}/project?page=Delete&id=${project.id}">Supprimer ce projet</a> | 
+				<a href="${pageContext.request.contextPath}/project?page=List" class="btn-retour">retour a la liste</a>
 			</div>
 		</div>
 	</body>

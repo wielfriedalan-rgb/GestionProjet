@@ -13,8 +13,8 @@ import entity.Project;
 import entity.Statut;
 
 public class ProjectDAO {
-	
-	public static ArrayList<Project> findAll() {
+
+	public ArrayList<Project> findAll() {
 		ArrayList<Project> projects = new ArrayList<Project>();
 		String sql = "SELECT * FROM projet";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
@@ -46,7 +46,7 @@ public class ProjectDAO {
 	}
 	
 	
-	public static Project findById(int idt) {
+	public Project findById(int idt) {
 		String sql = "SELECT * FROM projet WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -76,7 +76,7 @@ public class ProjectDAO {
 	}
 	
 	
-	public static void save(Project project) {
+	public void save(Project project) {
 		String sql = "INSERT INTO projet (nom, description_projet, budget, date_debut, date_fin, statut) VALUES (?, ?, ?, ?, ?, ?)";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -98,7 +98,7 @@ public class ProjectDAO {
 	}
 	
 	
-	public static void update(Project projectUpdate) {
+	public void update(Project projectUpdate) {
 		String sql = "UPDATE projet SET nom = ?, description_projet = ?, budget = ?, date_debut = ?, date_fin = ?, statut = ? WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -121,7 +121,7 @@ public class ProjectDAO {
 	}
 	
 	
-	public static void delete(int id) {
+	public void delete(int id) {
 		String sql = "DELETE FROM projet WHERE id= ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");

@@ -9,20 +9,25 @@ import dao.MovementDAO;
 import dao.ProjectDAO;
 import entity.Project;
 import entity.Statut;
+import util.Constant;
+import util.Validation;
 
 public class ProjectService {
 	
-	public static final int MIN_NAME=4;
-	public static final int MAX_NAME=50;
-	public static final int MIN_DESCRIPTION=0;
-	public static final int MAX_DESCTIPTION=2000;
+	private ProjectDAO projectDAO;
+	private MovementDAO movementDAO;
+	
+	public ProjectService() {
+		this.projectDAO = new ProjectDAO();
+		this.movementDAO = new MovementDAO();
+	}
 	
 	
-	public static Map<String, String> validationProject(String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
+	public Map<String, String> validationProject(String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
 		Map<String, String> error = new HashMap<String, String>();
-		Validation.text(error, "Le nom", name, MIN_NAME, MAX_NAME, true);
+		Validation.text(error, "Le nom", name, Constant.MIN_NAME, Constant.MAX_NAME, true);
 		Double budget = Validation.number(error, "Le budget", budgetString, 0, false);
-		Validation.text(error, "La description", description, MIN_DESCRIPTION, MAX_DESCTIPTION, false);
+		Validation.text(error, "La description", description, Constant.MIN_DESCRIPTION, Constant.MAX_DESCTIPTION, false);
 		LocalDate startDate = Validation.date(error, "La date de debut", startDateString);
 		LocalDate endDate = Validation.date(error, "La date de fin", endDateString);
 		if(startDate==null || endDate==null || budget==null) {
@@ -40,7 +45,7 @@ public class ProjectService {
 		return error;
 	}
 	
-	public static void createProject(String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
+	public void createProject(String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
 		double budget = Double.parseDouble(budgetString);
 		LocalDate startDate = LocalDate.parse(startDateString);
 		LocalDate endDate = null;
@@ -48,20 +53,19 @@ public class ProjectService {
 			endDate = LocalDate.parse(endDateString);
 		}
 		Statut statut = Statut.valueOf(statutString);
-		
 		Project projet = new Project(name, budget, description, startDate, endDate, statut);
-		ProjectDAO.save(projet);
+		this.projectDAO.save(projet);
 	}
 	
-	public static ArrayList<Project> findAllProject() {
-		return ProjectDAO.findAll();
+	public ArrayList<Project> findAllProject() {
+		return this.projectDAO.findAll();
 	}
 	
-	public static Project findProjectById(int id) {
-		return ProjectDAO.findById(id);
+	public Project findProjectById(int id) {
+		return this.projectDAO.findById(id);
 	}
 	
-	public static void updateProject(int id, String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
+	public void updateProject(int id, String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
 		double budget = Double.parseDouble(budgetString);
 		LocalDate startDate = LocalDate.parse(startDateString);
 		LocalDate endDate = null;
@@ -69,13 +73,13 @@ public class ProjectService {
 			endDate = LocalDate.parse(endDateString);
 		}
 		Statut statut = Statut.valueOf(statutString);
-		ProjectDAO.update(new Project(id,name, budget, description, startDate, endDate, statut));
+		this.projectDAO.update(new Project(id,name, budget, description, startDate, endDate, statut));
 	}
 	
-	public static boolean deleteProject(int id) {
-		int mov = MovementDAO.findByProjects(id).size();
+	public boolean deleteProject(int id) {
+		int mov = this.movementDAO.findByProjects(id).size();
 		if(mov==0) {
-			ProjectDAO.delete(id);
+			this.projectDAO.delete(id);
 			return true;
 		}else {
 			return false;

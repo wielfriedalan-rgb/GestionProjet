@@ -13,7 +13,7 @@ import entity.TypeMovement;
 
 public class MovementDAO {
 
-	public static Movement findById(int idt) {
+	public Movement findById(int idt) {
 		String sql = "SELECT * FROM mouvement WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -39,7 +39,7 @@ public class MovementDAO {
 	}
 	
 	
-	public static ArrayList<Movement> findByProjects(int projectIdt) {
+	public ArrayList<Movement> findByProjects(int projectIdt) {
 		String sql = "SELECT * FROM mouvement WHERE projet_id = ?";
 		ArrayList<Movement> movements = new ArrayList<Movement>();
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
@@ -65,7 +65,7 @@ public class MovementDAO {
 	}
 	
 	
-	public static void save(Movement movement) {
+	public void save(Movement movement) {
 		String sql = "INSERT INTO mouvement (nom, libelle, type_mouvement, montant, date_mouvement, description_mouvement, projet_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -84,7 +84,7 @@ public class MovementDAO {
 	}
 	
 		
-	public static void update(Movement movement) {
+	public void update(Movement movement) {
 		String sql = "UPDATE mouvement SET nom = ? , libelle = ? , type_mouvement = ? , montant = ? , date_mouvement = ? , description_mouvement = ? WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -103,7 +103,7 @@ public class MovementDAO {
 	}
 	
 	
-	public static void delete(int id) {
+	public void delete(int id) {
 		String sql = "DELETE FROM mouvement WHERE id= ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");

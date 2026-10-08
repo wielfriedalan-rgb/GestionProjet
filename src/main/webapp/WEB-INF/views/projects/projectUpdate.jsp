@@ -17,7 +17,7 @@
 		<c:set var="varEndDate" value="${empty error ? project.endDate : param.endDate}" />
 	
 		<h1>Modifier Projet</h1>
-		<form action="projectUpdate?id=${project.id}" method="post">
+		<form action="project?page=Update&id=${project.id}" method="post">
 			<label for="name">Nom :</label>
 			<input type="text" id="name" name="name" value="<c:out value='${varName}'/>" required>
 			<span class="error">${error['Le nom']}</span>
@@ -44,7 +44,7 @@
 			<br>
 			<div class="action-update">
 				<input type="submit" value="Modifier le projet">
-				<a href="${pageContext.request.contextPath}/projectDetail?id=${project.id}" class="btn-annuler">Annuler</a>
+				<a href="${pageContext.request.contextPath}/project?page=Detail&id=${project.id}" class="btn-annuler">Annuler</a>
 			</div>
 		</form>
 	</body>

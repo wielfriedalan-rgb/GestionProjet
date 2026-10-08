@@ -19,7 +19,7 @@
 			</div>
 			<br>
 			<div class="btn-action">
-				<a href="${pageContext.request.contextPath}/projectDetail?id=${project.id}" class="btn-retour">retour aux details</a>
+				<a href="${pageContext.request.contextPath}/project?page=Detail&id=${project.id}" class="btn-retour">retour aux details</a>
 			</div>
 		</div>
 	</body>

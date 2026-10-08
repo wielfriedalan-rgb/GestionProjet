@@ -39,7 +39,7 @@
 						</td>
 						<td><c:out value="${line.startDate}" /></td>
 						<td><c:out value="${line.endDate}" /></td>
-						<td><a href="${pageContext.request.contextPath}/projectDetail?id=${line.id}">Voir details</a></td>
+						<td><a href="${pageContext.request.contextPath}/project?page=Detail&id=${line.id}">Voir details</a></td>
 					</tr>
 				</c:forEach>
 
@@ -51,7 +51,7 @@
 			</tbody>
 		</table>
 		<div class="project-actions">
-			<a class="project-create" href="${pageContext.request.contextPath}/projectCreate">+ Nouveau projet</a>
+			<a class="project-create" href="${pageContext.request.contextPath}/project?page=Create">+ Nouveau projet</a>
 		</div>
 	</body>
 </html>

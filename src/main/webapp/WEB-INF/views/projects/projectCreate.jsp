@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<h1>Nouveau Projet</h1>
-		<form action="projectCreate" method="post">
+		<form action="project?page=Create" method="post">
 			<label for="name">Nom :</label>
 			<input type="text" id="name" name="name" value="<c:out value='${param.name}'/>" maxlength="50" required>
 			<span class="error">${error['Le nom']}</span>
@@ -36,7 +36,7 @@
 			<div id="errorMessage"><c:if test="${not empty error}">Vous avez entré une ou plusieurs information(s) non correcte. Veuillez vérifier !</c:if></div>
 			<br>
 			<input type="submit" value="Créer le projet">
-			<a href="${pageContext.request.contextPath}/projectList" class="btn-annuler">Annuler</a>
+			<a href="${pageContext.request.contextPath}/project?page=List" class="btn-annuler">Annuler</a>
 		</form>
 	</body>
 </html>

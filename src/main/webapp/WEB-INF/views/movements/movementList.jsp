@@ -13,7 +13,7 @@
 		<c:if test="${param.deleted=='1'}">
 			<div class="alert-success">Mouvement supprimer avec succes !!</div>
 		</c:if>
-		<a href="${pageContext.request.contextPath}/projectDetail?id=${project.id}" class="btn-retour">← Retour au projet</a>
+		<a href="${pageContext.request.contextPath}/project?page=Detail&id=${project.id}" class="btn-retour">← Retour au projet</a>
 		<table class="project-table">
 			<thead>
 				<tr>
@@ -33,7 +33,7 @@
 						<td><c:out value="${line.montant}"/></td>
 						<td><c:out value="${line.type}"/></td>
 						<td><c:out value="${line.date}"/></td>
-						<td><a href="${pageContext.request.contextPath}/movementDetail?id=${line.id}">Voir details</a></td>
+						<td><a href="${pageContext.request.contextPath}/movement?page=Detail&id=${line.id}">Voir details</a></td>
 					</tr>
 				</c:forEach>
 
@@ -45,7 +45,7 @@
 			</tbody>
 		</table>
 		<div class="project-actions">
-			<a class="project-create" href="${pageContext.request.contextPath}/movementCreate?projectId=${project.id}">+ Nouveau mouvement</a>
+			<a class="project-create" href="${pageContext.request.contextPath}/movement?page=Create&projectId=${project.id}">+ Nouveau mouvement</a>
 		</div>
 	</body>
 </html>

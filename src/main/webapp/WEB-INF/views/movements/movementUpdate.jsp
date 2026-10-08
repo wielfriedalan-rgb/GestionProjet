@@ -17,7 +17,7 @@
 		<c:set var="varDate" value="${empty error ? movement.date : param.date}" />
 	
 		<h1>Modifier un mouvement</h1>
-		<form action="movementUpdate" method="post">
+		<form action="movement?page=Update" method="post">
 			<input type="hidden" name="id" value="${movement.id}">
 			<input type="hidden" name="projectId" value="${movement.projectId}">
 			<label for="name">Nom :</label>
@@ -45,7 +45,7 @@
 			<div id="errorMessage"><c:if test="${not empty error}">Vous avez entré une ou plusieurs information(s) non correcte. Veuillez vérifier !</c:if></div>
 			<br>
 			<input type="submit" value="Modifier le mouvement">
-			<a href="${pageContext.request.contextPath}/movementDetail?id=${movement.id}" class="btn-annuler">Annuler</a>
+			<a href="${pageContext.request.contextPath}/movement?page=Detail&id=${movement.id}" class="btn-annuler">Annuler</a>
 		</form>
 	</body>
 </html>

@@ -31,24 +31,7 @@ public class Project {
 		this.setEndDate(endDate);
 		this.setStatut(statut);
 	}
-	public Project(String name, double budget, String description, LocalDate startDate, Statut statut) {
-		this.setName(name);
-		this.setBudget(budget);
-		this.setDescription(description);
-		this.setStartDate(startDate);
-		this.setStatut(statut);
-	}
-	public Project(String name, double budget, String description, LocalDate startDate) {
-		this.setName(name);
-		this.setBudget(budget);
-		this.setDescription(description);
-		this.setStartDate(startDate);
-	}
-	public Project(String name, double budget, String description) {
-		this.setName(name);
-		this.setBudget(budget);
-		this.setDescription(description);
-	}
+	
 	public Project(int id) {
 		this.setId(id);
 	}

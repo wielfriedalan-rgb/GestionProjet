@@ -10,11 +10,11 @@
 	</head>
 	<body>
 		<h1>Supprimer le projet : <span style="color: rgb(0, 49, 7);"><c:out value="${project.name}"/></span></h1>
-		<form action="projectDelete" method="post">
+		<form action="project?page=Delete" method="post">
 			<label>Etes-vous sure de supprimer ce projet ? L'action est irreversible.</label>
 			<input type="hidden" name="id" value="${project.id}">
 			<input type="submit" value="Supprimer le projet">
-			<a href="${pageContext.request.contextPath}/projectList" class="btn-annuler">Annuler</a>
+			<a href="${pageContext.request.contextPath}/project?page=List" class="btn-annuler">Annuler</a>
 			<div id="errorMessage"></div>
 		</form>
 	</body>

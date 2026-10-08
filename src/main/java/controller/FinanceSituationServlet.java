@@ -18,6 +18,13 @@ import entity.Project;
 @WebServlet("/financeSituation")
 public class FinanceSituationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ProjectService projectService;
+	private FinanceService financeService;
+	
+	public FinanceSituationServlet() {
+		this.projectService = new ProjectService();
+		this.financeService = new FinanceService();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,13 +37,13 @@ public class FinanceSituationServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/projectList");
 			return;
 		}
-		Project project = ProjectService.findProjectById(id);
+		Project project = this.projectService.findProjectById(id);
 		if(project == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
 		request.setAttribute("project", project);
-		request.setAttribute("finance", FinanceService.financeCalculation(project));
+		request.setAttribute("finance", this.financeService.financeCalculation(project));
 		request.getRequestDispatcher("/WEB-INF/views/projects/financeSituation.jsp").forward(request, response);
 	}
 }
