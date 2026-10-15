@@ -45,22 +45,22 @@ public class MovementService {
 		return this.movementDAO.findByProjects(projectId);
 	}
 	
-	public void createMovement(String name, String libelle, String typeString, String montantString,  String dateString, String description, int projectId) {
+	public Movement createMovement(String name, String libelle, String typeString, String montantString,  String dateString, String description, int projectId) {
 		TypeMovement type = TypeMovement.valueOf(typeString);
 		double montant = Double.parseDouble(montantString);
 		LocalDate date = LocalDate.parse(dateString);
-		this.movementDAO.save(new Movement(name, libelle, type, montant, date, description, projectId));
+		return this.movementDAO.save(new Movement(name, libelle, type, montant, date, description, projectId));
 	}
 	
 	public Movement findMovementById(int id) {
 		return this.movementDAO.findById(id);
 	}
 	
-	public void updateMovement(int id, String name, String libelle, String typeString, String montantString,  String dateString, String description) {
+	public Movement updateMovement(int id, String name, String libelle, String typeString, String montantString,  String dateString, String description) {
 		double montant = Double.parseDouble(montantString);
 		LocalDate date = LocalDate.parse(dateString);
 		TypeMovement type = TypeMovement.valueOf(typeString);
-		this.movementDAO.update(new Movement(id, name, libelle, type, montant, date, description));
+		return this.movementDAO.update(new Movement(id, name, libelle, type, montant, date, description));
 	}
 	
 	public void deleteMovement(int id) {

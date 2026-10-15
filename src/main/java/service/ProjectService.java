@@ -45,7 +45,7 @@ public class ProjectService {
 		return error;
 	}
 	
-	public void createProject(String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
+	public Project createProject(String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
 		double budget = Double.parseDouble(budgetString);
 		LocalDate startDate = LocalDate.parse(startDateString);
 		LocalDate endDate = null;
@@ -54,7 +54,7 @@ public class ProjectService {
 		}
 		Statut statut = Statut.valueOf(statutString);
 		Project projet = new Project(name, budget, description, startDate, endDate, statut);
-		this.projectDAO.save(projet);
+		return this.projectDAO.save(projet);
 	}
 	
 	public ArrayList<Project> findAllProject() {
@@ -65,7 +65,7 @@ public class ProjectService {
 		return this.projectDAO.findById(id);
 	}
 	
-	public void updateProject(int id, String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
+	public Project updateProject(int id, String name, String budgetString, String description, String startDateString, String endDateString, String statutString) {
 		double budget = Double.parseDouble(budgetString);
 		LocalDate startDate = LocalDate.parse(startDateString);
 		LocalDate endDate = null;
@@ -73,7 +73,7 @@ public class ProjectService {
 			endDate = LocalDate.parse(endDateString);
 		}
 		Statut statut = Statut.valueOf(statutString);
-		this.projectDAO.update(new Project(id,name, budget, description, startDate, endDate, statut));
+		return this.projectDAO.update(new Project(id, name, budget, description, startDate, endDate, statut));
 	}
 	
 	public boolean deleteProject(int id) {

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -65,9 +66,10 @@ public class MovementDAO {
 	}
 	
 	
-	public void save(Movement movement) {
+	public Movement save(Movement movement) {
 		String sql = "INSERT INTO mouvement (nom, libelle, type_mouvement, montant, date_mouvement, description_mouvement, projet_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
+		try(Connection connection = ConnectionDB.getConnectionDB();
+				PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
 			statement.setString(1, movement.getName());
 			statement.setString(2, movement.getLibelle());
@@ -77,14 +79,20 @@ public class MovementDAO {
 			statement.setString(6, movement.getDescription());
 			statement.setInt(7, movement.getProjectId());
 			statement.executeUpdate();
+			try(ResultSet keys = statement.getGeneratedKeys()){
+				if(keys.next()) {
+					movement.setId(keys.getInt(1));
+				}
+			}
 			System.out.println(" ------ Query execute !  ------");
 		} catch (SQLException e ) {
 			e.printStackTrace();
 		}
+		return movement;
 	}
 	
 		
-	public void update(Movement movement) {
+	public Movement update(Movement movement) {
 		String sql = "UPDATE mouvement SET nom = ? , libelle = ? , type_mouvement = ? , montant = ? , date_mouvement = ? , description_mouvement = ? WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -100,6 +108,7 @@ public class MovementDAO {
 		} catch (SQLException e ) {
 			e.printStackTrace();
 		}
+		return movement;
 	}
 	
 	

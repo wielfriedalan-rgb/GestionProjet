@@ -56,7 +56,7 @@ public class ProjectRestController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createProject(Project project) {
-		projectService.createProject(
+		Project p = projectService.createProject(
 				project.getName(),
 				String.valueOf(project.getBudget()),
 				project.getDescription(), 
@@ -64,7 +64,7 @@ public class ProjectRestController {
 				String.valueOf(project.getEndDate()), 
 				String.valueOf(project.getStatut())
 				);
-		return Response.ok("Projet cree avec sucees !!").build();
+		return Response.status(Response.Status.CREATED).entity(p).build();
 	}
 	
 	@PUT
@@ -72,7 +72,7 @@ public class ProjectRestController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateProject(@PathParam("id") int id, Project project) {
-		projectService.updateProject(
+		Project p =projectService.updateProject(
 				id,
 				project.getName(),
 				String.valueOf(project.getBudget()),
@@ -81,7 +81,7 @@ public class ProjectRestController {
 				String.valueOf(project.getEndDate()), 
 				String.valueOf(project.getStatut())
 				);
-		return Response.ok("Projet modifier avec sucees !!").build();
+		return Response.ok(p).build();
 	}
 	
 	@GET

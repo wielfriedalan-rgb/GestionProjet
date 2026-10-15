@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -76,9 +77,10 @@ public class ProjectDAO {
 	}
 	
 	
-	public void save(Project project) {
+	public Project save(Project project) {
 		String sql = "INSERT INTO projet (nom, description_projet, budget, date_debut, date_fin, statut) VALUES (?, ?, ?, ?, ?, ?)";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
+		try(Connection connection = ConnectionDB.getConnectionDB();
+			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
 			statement.setString(1, project.getName());
 			statement.setString(2, project.getDescription());
@@ -91,14 +93,20 @@ public class ProjectDAO {
 			}
 			statement.setString(6, project.getStatut().name());
 			statement.executeUpdate();
+			try(ResultSet keys = statement.getGeneratedKeys()){
+				if(keys.next()) {
+					project.setId(keys.getInt(1));
+				}
+			}
 			System.out.println(" ------ Query execute !  ------");
 		} catch (SQLException e ) {
 			e.printStackTrace();
 		}
+		return project;
 	}
 	
 	
-	public void update(Project projectUpdate) {
+	public Project update(Project projectUpdate) {
 		String sql = "UPDATE projet SET nom = ?, description_projet = ?, budget = ?, date_debut = ?, date_fin = ?, statut = ? WHERE id = ?";
 		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
 			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
@@ -118,6 +126,7 @@ public class ProjectDAO {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return projectUpdate;
 	}
 	
 	

@@ -49,7 +49,7 @@ public class MovementRestController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createMovement(@PathParam("projectId") int projectId, Movement movement) {
-		movementService.createMovement(
+		Movement m = movementService.createMovement(
 				movement.getName(),
 				movement.getLibelle(),
 				String.valueOf(movement.getType()), 
@@ -58,7 +58,7 @@ public class MovementRestController {
 				movement.getDescription(),
 				projectId
 				);
-		return Response.ok("Mouvement cree avec sucees !!").build();
+		return Response.status(Response.Status.CREATED).entity(m).build();
 	}
 	
 	@PUT
@@ -66,7 +66,7 @@ public class MovementRestController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateMovement(@PathParam("id") int id, Movement movement) {
-		movementService.updateMovement(
+		Movement m = movementService.updateMovement(
 				id,
 				movement.getName(),
 				movement.getLibelle(),
@@ -75,7 +75,7 @@ public class MovementRestController {
 				String.valueOf(movement.getDate()), 
 				movement.getDescription()
 				);
-		return Response.ok("Mouvement modifier avec sucees !!").build();
+		return Response.ok(m).build();
 	}
 	
 }
