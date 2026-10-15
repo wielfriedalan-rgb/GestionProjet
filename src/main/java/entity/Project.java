@@ -31,6 +31,8 @@ public class Project {
 		this.setEndDate(endDate);
 		this.setStatut(statut);
 	}
+	public Project() {
+	}
 	
 	public Project(int id) {
 		this.setId(id);

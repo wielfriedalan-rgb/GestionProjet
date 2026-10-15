@@ -32,14 +32,14 @@ public class ProjectRestController {
 	}
 	
 	@GET
-	@Path("/{id}")
+	@Path("/project/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Project getProject(@PathParam("id") int id) {
 		return projectService.findProjectById(id);
 	}
 	
 	@DELETE
-	@Path("/{id}")
+	@Path("/project/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteProject(@PathParam("id") int id) {
 		HashMap<String, String> response = new HashMap<String, String>();

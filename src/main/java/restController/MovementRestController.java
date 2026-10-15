@@ -28,14 +28,14 @@ public class MovementRestController {
 	}
 	
 	@GET
-	@Path("/{id}")
+	@Path("/movement/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Movement getMovement(@PathParam("id") int id) {
 		return movementService.findMovementById(id);
 	}
 	
 	@DELETE
-	@Path("/{id}")
+	@Path("/movement/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteMovement(@PathParam("id") int id) {
 		HashMap<String, String> response = new HashMap<String, String>();
@@ -48,7 +48,7 @@ public class MovementRestController {
 	@Path("/movement")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createMovement(Movement movement) {
+	public Response createMovement(@PathParam("projectId") int projectId, Movement movement) {
 		movementService.createMovement(
 				movement.getName(),
 				movement.getLibelle(),
@@ -56,7 +56,7 @@ public class MovementRestController {
 				String.valueOf(movement.getMontant()), 
 				String.valueOf(movement.getDate()), 
 				movement.getDescription(),
-				movement.getProjectId()
+				projectId
 				);
 		return Response.ok("Mouvement cree avec sucees !!").build();
 	}

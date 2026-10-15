@@ -42,6 +42,8 @@ public class Movement {
 		this.setDescription(description);
 		this.setProjectId(projectId);
 	}
+	public Movement() {
+	}
 	
 	public int getId() {
 		return id;
