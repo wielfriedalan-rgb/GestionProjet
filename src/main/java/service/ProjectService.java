@@ -1,8 +1,8 @@
 package service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dao.MovementDAO;
@@ -57,7 +57,7 @@ public class ProjectService {
 		return this.projectDAO.save(projet);
 	}
 	
-	public ArrayList<Project> findAllProject() {
+	public List<Project> findAllProject() {
 		return this.projectDAO.findAll();
 	}
 	
@@ -77,8 +77,8 @@ public class ProjectService {
 	}
 	
 	public boolean deleteProject(int id) {
-		int mov = this.movementDAO.findByProjects(id).size();
-		if(mov==0) {
+		int movSize = this.movementDAO.findByProjects(id).size();
+		if(movSize==0) {
 			this.projectDAO.delete(id);
 			return true;
 		}else {

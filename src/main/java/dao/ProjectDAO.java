@@ -1,144 +1,105 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.util.List;
 
 import entity.Project;
-import entity.Statut;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 public class ProjectDAO {
 
-	public ArrayList<Project> findAll() {
-		ArrayList<Project> projects = new ArrayList<Project>();
-		String sql = "SELECT * FROM projet";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			try(ResultSet resultSet = statement.executeQuery()){
-				System.out.println(" ------ Debut de remplissage  ------");
-				while(resultSet.next()) {
-					int id = resultSet.getInt("id");
-					String nom = resultSet.getString("nom");
-					double budget = resultSet.getDouble("budget");
-					String description = resultSet.getString("description_projet"); 
-					LocalDate startDate = ( resultSet.getDate("date_debut") != null ) 
-							? resultSet.getDate("date_debut").toLocalDate()
-									: null;
-					LocalDate endDate = ( resultSet.getDate("date_fin") != null ) 
-							? resultSet.getDate("date_fin").toLocalDate()
-									: null;
-					String statutString = resultSet.getString("statut");
-					Statut statut = Statut.valueOf(statutString);
-					projects.add(new Project(id, nom, budget, description, startDate, endDate, statut));
-				}
-			}
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
+	public List<Project> findAll() {
+		List<Project> projects = new ArrayList<>();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			projects = em.createQuery("from Project", Project.class).getResultList();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
-		System.out.println(" ------ Fin de remplissage  ------");
 		return projects;
 	}
 	
 	
 	public Project findById(int idt) {
-		String sql = "SELECT * FROM projet WHERE id = ?";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setInt(1, idt);
-			try(ResultSet resultSet = statement.executeQuery()){
-				if(resultSet.next()) {
-					int id = resultSet.getInt("id");
-					String nom = resultSet.getString("nom");
-					double budget = resultSet.getDouble("budget");
-					String description = resultSet.getString("description_projet"); 
-					LocalDate startDate = ( resultSet.getDate("date_debut") != null ) 
-							? resultSet.getDate("date_debut").toLocalDate()
-									: null;
-					LocalDate endDate = ( resultSet.getDate("date_fin") != null ) 
-							? resultSet.getDate("date_fin").toLocalDate()
-									: null;
-					String statutString = resultSet.getString("statut");
-					Statut statut = Statut.valueOf(statutString);
-					return new Project(id, nom, budget, description, startDate, endDate, statut);
-				}
-			}
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
+		Project project = new Project();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			project = em.find(Project.class, idt);
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
-		return null;
+		return project;
 	}
 	
 	
 	public Project save(Project project) {
-		String sql = "INSERT INTO projet (nom, description_projet, budget, date_debut, date_fin, statut) VALUES (?, ?, ?, ?, ?, ?)";
-		try(Connection connection = ConnectionDB.getConnectionDB();
-			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setString(1, project.getName());
-			statement.setString(2, project.getDescription());
-			statement.setDouble(3, project.getBudget());
-			statement.setDate(4, Date.valueOf(project.getStartDate()));
-			if (project.getEndDate() != null ) {
-				statement.setDate(5, Date.valueOf(project.getEndDate()));
-			}else {
-				statement.setNull(5, Types.DATE);
-			}
-			statement.setString(6, project.getStatut().name());
-			statement.executeUpdate();
-			try(ResultSet keys = statement.getGeneratedKeys()){
-				if(keys.next()) {
-					project.setId(keys.getInt(1));
-				}
-			}
-			System.out.println(" ------ Query execute !  ------");
-		} catch (SQLException e ) {
-			e.printStackTrace();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			EntityTransaction trans = em.getTransaction();
+			trans.begin();
+				em.persist(project);
+				System.out.println("nouvel id : " + project.getId());
+			trans.commit();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
 		return project;
 	}
 	
 	
 	public Project update(Project projectUpdate) {
-		String sql = "UPDATE projet SET nom = ?, description_projet = ?, budget = ?, date_debut = ?, date_fin = ?, statut = ? WHERE id = ?";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setString(1, projectUpdate.getName());
-			statement.setString(2, projectUpdate.getDescription());
-			statement.setDouble(3, projectUpdate.getBudget());
-			statement.setDate(4, Date.valueOf(projectUpdate.getStartDate()));
-			if (projectUpdate.getEndDate() != null ) {
-				statement.setDate(5, Date.valueOf(projectUpdate.getEndDate()));
-			}else {
-				statement.setNull(5, Types.DATE);
-			}
-			statement.setString(6, projectUpdate.getStatut().name());
-			statement.setInt(7, projectUpdate.getId());
-			statement.executeUpdate();
-			System.out.println(" ------ Query execute !  ------");
-		} catch(SQLException e) {
-			e.printStackTrace();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			EntityTransaction trans = em.getTransaction();
+			trans.begin();
+				Project project = em.find(Project.class, projectUpdate.getId());
+				project.setName(projectUpdate.getName());
+				project.setDescription(projectUpdate.getDescription());
+				project.setBudget(projectUpdate.getBudget());
+				project.setStartDate(projectUpdate.getStartDate());
+				project.setEndDate(projectUpdate.getEndDate());
+				project.setStatut(projectUpdate.getStatut());
+			trans.commit();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
 		return projectUpdate;
 	}
 	
 	
 	public void delete(int id) {
-		String sql = "DELETE FROM projet WHERE id= ?";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setInt(1, id);
-			statement.executeUpdate();
-			System.out.println(" ------ Query execute !  ------");
-		} catch(SQLException e) {
-			e.printStackTrace();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			EntityTransaction trans = em.getTransaction();
+			trans.begin();
+				em.remove(em.find(Project.class, id));
+				System.out.println("suppression");
+			trans.commit();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
 	}
 	

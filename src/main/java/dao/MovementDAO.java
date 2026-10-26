@@ -1,42 +1,34 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import entity.Movement;
 import entity.TypeMovement;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 public class MovementDAO {
 
 	public Movement findById(int idt) {
-		String sql = "SELECT * FROM mouvement WHERE id = ?";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setInt(1, idt);
-			try(ResultSet resultSet = statement.executeQuery()){
-				if(resultSet.next()) {
-					int id = resultSet.getInt("id");
-					String name = resultSet.getString("nom");
-					String libelle = resultSet.getString("libelle");
-					TypeMovement type = TypeMovement.valueOf(resultSet.getString("type_mouvement"));
-					double montant = resultSet.getDouble("montant");
-					LocalDate date = resultSet.getDate("date_mouvement").toLocalDate();
-					String description = resultSet.getString("description_mouvement");
-					int projectId = resultSet.getInt("projet_id");
-					return new Movement(id, name, libelle, type, montant, date, description, projectId);
-				}
-			}
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
+		Movement movement = new Movement();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			movement = em.find(Movement.class, idt);
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
-		return null;
+		return movement;
 	}
 	
 	
@@ -67,61 +59,63 @@ public class MovementDAO {
 	
 	
 	public Movement save(Movement movement) {
-		String sql = "INSERT INTO mouvement (nom, libelle, type_mouvement, montant, date_mouvement, description_mouvement, projet_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		try(Connection connection = ConnectionDB.getConnectionDB();
-				PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setString(1, movement.getName());
-			statement.setString(2, movement.getLibelle());
-			statement.setString(3, movement.getType().name());
-			statement.setDouble(4, movement.getMontant());
-			statement.setDate(5, Date.valueOf(movement.getDate()));
-			statement.setString(6, movement.getDescription());
-			statement.setInt(7, movement.getProjectId());
-			statement.executeUpdate();
-			try(ResultSet keys = statement.getGeneratedKeys()){
-				if(keys.next()) {
-					movement.setId(keys.getInt(1));
-				}
-			}
-			System.out.println(" ------ Query execute !  ------");
-		} catch (SQLException e ) {
-			e.printStackTrace();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			EntityTransaction trans = em.getTransaction();
+			trans.begin();
+				em.persist(movement);
+				System.out.println("nouvel id : " + movement.getId());
+			trans.commit();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
 		return movement;
 	}
 	
 		
 	public Movement update(Movement movement) {
-		String sql = "UPDATE mouvement SET nom = ? , libelle = ? , type_mouvement = ? , montant = ? , date_mouvement = ? , description_mouvement = ? WHERE id = ?";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setString(1, movement.getName());
-			statement.setString(2, movement.getLibelle());
-			statement.setString(3, movement.getType().name());
-			statement.setDouble(4, movement.getMontant());
-			statement.setDate(5, Date.valueOf(movement.getDate()));
-			statement.setString(6, movement.getDescription());
-			statement.setInt(7, movement.getId());
-			statement.executeUpdate();
-			System.out.println(" ------ Query execute !  ------");
-		} catch (SQLException e ) {
-			e.printStackTrace();
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			EntityTransaction trans = em.getTransaction();
+			trans.begin();
+				Movement mov = em.find(Movement.class, movement.getId());
+				mov.setName(movement.getName());
+				mov.setLibelle(movement.getLibelle());
+				mov.setDescription(movement.getDescription());
+				mov.setMontant(movement.getMontant());
+				mov.setDate(movement.getDate());
+				mov.setType(movement.getType());
+			trans.commit();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
 		return movement;
 	}
 	
 	
 	public void delete(int id) {
-		String sql = "DELETE FROM mouvement WHERE id= ?";
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setInt(1, id);
-			statement.executeUpdate();
-			System.out.println(" ------ Query execute !  ------");
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}	
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			EntityTransaction trans = em.getTransaction();
+			trans.begin();
+				em.remove(em.find(Movement.class, id));
+				System.out.println("suppression");
+			trans.commit();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
+		}
 	}
 	
 }

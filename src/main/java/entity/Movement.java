@@ -2,16 +2,32 @@ package entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity @Table(name="mouvement")
 public class Movement {
 	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@Column(name="projet_id")
 	private int projectId;
+	@Column(name="nom")
 	private String name;
 	private String libelle;
 	private double montant;
+	@Column(name="type_mouvement")
+	@Enumerated(EnumType.STRING)
 	private TypeMovement type;
+	@Column(name="date_mouvement")
 	private LocalDate date;
+	@Column(name="description_mouvement")
 	private String description;
 	
 	public Movement(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description, int projectId) {
@@ -101,4 +117,11 @@ public class Movement {
 		this.description = description;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Movement [id=" + id + ", projectId=" + projectId + ", name=" + name + ", libelle=" + libelle
+				+ ", montant=" + montant + ", type=" + type + ", date=" + date + ", description=" + description + "]";
+	}
+
 }

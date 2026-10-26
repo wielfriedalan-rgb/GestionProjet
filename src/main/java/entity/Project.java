@@ -2,15 +2,31 @@ package entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity @Table(name="projet")
 public class Project {
 	
 	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@Column(name="nom")
 	private String name;
 	private double budget;
+	@Column(name="description_projet")
 	private String description;
+	@Column(name="date_debut")
 	private LocalDate startDate;
+	@Column(name="date_fin")
 	private LocalDate endDate;
+	@Enumerated(EnumType.STRING)
 	private Statut statut;
 	
 //	Declaratioon de constructeur de classe Projects
@@ -31,12 +47,12 @@ public class Project {
 		this.setEndDate(endDate);
 		this.setStatut(statut);
 	}
-	public Project() {
-	}
-	
 	public Project(int id) {
 		this.setId(id);
 	}
+	public Project() {
+	}
+	
 	
 //	Declaration des Getters et Setters	
 	public int getId() {
@@ -86,6 +102,13 @@ public class Project {
 	}
 	public void setStatut(Statut statut) {
 		this.statut = statut;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Project [id=" + id + ", name=" + name + ", budget=" + budget + ", description=" + description
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", statut=" + statut + "]";
 	}
 	
 }

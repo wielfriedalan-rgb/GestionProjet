@@ -1,17 +1,16 @@
 package controller;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import entity.Project;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.ProjectService;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-
-import entity.Project;
 
 /**
  * Servlet implementation class ProjectServlet
@@ -38,7 +37,7 @@ public class ProjectServlet extends HttpServlet {
 			
 			case "List":{ // doGet() pour la page List
 				System.out.println("Dans le doGet de ProjectListServlet ======================");
-				ArrayList<Project> projects = this.projectService.findAllProject();
+				List<Project> projects = this.projectService.findAllProject();
 				request.setAttribute("projects", projects);
 				request.getRequestDispatcher("/WEB-INF/views/projects/projectList.jsp").forward(request, response);
 				return;
