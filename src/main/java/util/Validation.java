@@ -2,10 +2,11 @@ package util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import dao.MovementDAO;
+import dao.ProjectDAO;
 import entity.Movement;
 import entity.TypeMovement;
 
@@ -60,7 +61,8 @@ public class Validation {
 	
 	public static void select(Map<String, String> error, TypeMovement type, double montant, int projectId, int id) {
 		if(type==TypeMovement.SORTIE) {
-			ArrayList<Movement> movements = new MovementDAO().findByProjects(projectId);
+			ProjectDAO projectDAO = new ProjectDAO();
+			List<Movement> movements = new MovementDAO().findByProjects(projectDAO.findById(projectId));
 			double totalEntrees=0, totalSorties=montant;
 			for(Movement mov : movements) {
 				if(id!=(-1) && id==mov.getId()) continue;

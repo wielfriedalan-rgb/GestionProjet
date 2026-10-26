@@ -77,7 +77,7 @@ public class ProjectService {
 	}
 	
 	public boolean deleteProject(int id) {
-		int movSize = this.movementDAO.findByProjects(id).size();
+		int movSize = this.movementDAO.findByProjects(findProjectById(id)).size();
 		if(movSize==0) {
 			this.projectDAO.delete(id);
 			return true;

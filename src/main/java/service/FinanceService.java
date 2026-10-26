@@ -1,6 +1,6 @@
 package service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.MovementDAO;
 import entity.Movement;
@@ -15,7 +15,7 @@ public class FinanceService {
 	}
 
 	public FinanceSituation financeCalculation(Project project) {
-		ArrayList<Movement> movements = this.movementDAO.findByProjects(project.getId());
+		List<Movement> movements = this.movementDAO.findByProjects(project);
 		double totalEntrees=0, totalSorties=0;
 		for(Movement mov : movements) {
 			if(mov.getType()==TypeMovement.ENTREE) {

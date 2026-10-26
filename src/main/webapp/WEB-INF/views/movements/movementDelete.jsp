@@ -13,7 +13,7 @@
 		<form action="movement?page=Delete" method="post">
 			<label>Etes-vous sure de supprimer ce mouvement ? L'action est irreversible.</label>
 			<input type="hidden" name="id" value="${movement.id}">
-			<input type="hidden" name="projectId" value="${movement.projectId}">
+			<input type="hidden" name="projectId" value="${movement.project.id}">
 			<input type="submit" value="Supprimer le mouvement">
 			<a href="${pageContext.request.contextPath}/movement?page=Detail&id=${movement.id}" class="btn-annuler">Annuler</a>
 			<div id="errorMessage"></div>

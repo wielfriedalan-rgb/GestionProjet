@@ -1,8 +1,8 @@
 package service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dao.MovementDAO;
@@ -41,15 +41,16 @@ public class MovementService {
 		return error;
 	}
 
-	public ArrayList<Movement> findMovementByProject(int projectId){
-		return this.movementDAO.findByProjects(projectId);
+	public List<Movement> findMovementByProject(int projectId){
+		return this.movementDAO.findByProjects(projectDAO.findById(projectId));
 	}
 	
 	public Movement createMovement(String name, String libelle, String typeString, String montantString,  String dateString, String description, int projectId) {
 		TypeMovement type = TypeMovement.valueOf(typeString);
 		double montant = Double.parseDouble(montantString);
 		LocalDate date = LocalDate.parse(dateString);
-		return this.movementDAO.save(new Movement(name, libelle, type, montant, date, description, projectId));
+		Project project = projectDAO.findById(projectId);
+		return this.movementDAO.save(new Movement(name, libelle, type, montant, date, description, project));
 	}
 	
 	public Movement findMovementById(int id) {

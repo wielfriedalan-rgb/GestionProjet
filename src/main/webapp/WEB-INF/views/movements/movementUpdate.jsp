@@ -19,7 +19,7 @@
 		<h1>Modifier un mouvement</h1>
 		<form action="movement?page=Update" method="post">
 			<input type="hidden" name="id" value="${movement.id}">
-			<input type="hidden" name="projectId" value="${movement.projectId}">
+			<input type="hidden" name="projectId" value="${movement.project.id}">
 			<label for="name">Nom :</label>
 			<input type="text" id="name" name="name" value="<c:out value='${varName}' />">
 			<span class="error">${error['Le nom']}</span>

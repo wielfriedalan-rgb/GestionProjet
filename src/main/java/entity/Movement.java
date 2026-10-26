@@ -6,9 +6,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity @Table(name="mouvement")
@@ -16,8 +19,9 @@ public class Movement {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column(name="projet_id")
-	private int projectId;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="projet_id")
+	private Project project;
 	@Column(name="nom")
 	private String name;
 	private String libelle;
@@ -30,7 +34,7 @@ public class Movement {
 	@Column(name="description_mouvement")
 	private String description;
 	
-	public Movement(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description, int projectId) {
+	public Movement(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description, Project project) {
 		this.setId(id);
 		this.setName(name);
 		this.setLibelle(libelle);
@@ -38,7 +42,7 @@ public class Movement {
 		this.setMontant(montant);
 		this.setDate(date);
 		this.setDescription(description);
-		this.setProjectId(projectId);
+		this.setProject(project);
 	}
 	public Movement(int id, String name, String libelle, TypeMovement type, double montant, LocalDate date, String description) {
 		this.setId(id);
@@ -49,14 +53,14 @@ public class Movement {
 		this.setDate(date);
 		this.setDescription(description);
 	}
-	public Movement(String name, String libelle, TypeMovement type, double montant,  LocalDate date, String description, int projectId) {
+	public Movement(String name, String libelle, TypeMovement type, double montant,  LocalDate date, String description, Project project) {
 		this.setName(name);
 		this.setLibelle(libelle);
 		this.setType(type);
 		this.setMontant(montant);
 		this.setDate(date);
 		this.setDescription(description);
-		this.setProjectId(projectId);
+		this.setProject(project);
 	}
 	public Movement() {
 	}
@@ -68,11 +72,11 @@ public class Movement {
 		this.id = id;
 	}
 	
-	public int getProjectId() {
-		return projectId;
+	public Project getProject() {
+		return project;
 	}
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
 	public String getName() {
@@ -120,8 +124,8 @@ public class Movement {
 	
 	@Override
 	public String toString() {
-		return "Movement [id=" + id + ", projectId=" + projectId + ", name=" + name + ", libelle=" + libelle
-				+ ", montant=" + montant + ", type=" + type + ", date=" + date + ", description=" + description + "]";
+		return "Movement [id=" + id + ",\n projet=" + project + ",\n name=" + name + ",\n libelle=" + libelle
+				+ ",\n montant=" + montant + ",\n type=" + type + ",\n date=" + date + ",\n description=" + description + "\n]";
 	}
 
 }

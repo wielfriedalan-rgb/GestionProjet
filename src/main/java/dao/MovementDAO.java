@@ -1,14 +1,10 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import entity.Movement;
-import entity.TypeMovement;
+import entity.Project;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -32,27 +28,19 @@ public class MovementDAO {
 	}
 	
 	
-	public ArrayList<Movement> findByProjects(int projectIdt) {
-		String sql = "SELECT * FROM mouvement WHERE projet_id = ?";
-		ArrayList<Movement> movements = new ArrayList<Movement>();
-		try(Connection connection = ConnectionDB.getConnectionDB(); PreparedStatement statement = connection.prepareStatement(sql)){
-			System.out.println(" ====== Connexion a la Base de Donnee reussi !!  ======");
-			statement.setInt(1, projectIdt);
-			try(ResultSet resultSet = statement.executeQuery()){
-				while(resultSet.next()) {
-					int id = resultSet.getInt("id");
-					String name = resultSet.getString("nom");
-					String libelle = resultSet.getString("libelle");
-					TypeMovement type = TypeMovement.valueOf(resultSet.getString("type_mouvement"));
-					double montant = resultSet.getDouble("montant");
-					LocalDate date = resultSet.getDate("date_mouvement").toLocalDate();
-					String description = resultSet.getString("description_mouvement");
-					int projectId = resultSet.getInt("projet_id");
-					movements.add( new Movement(id, name, libelle, type, montant, date, description, projectId));
-				}
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
+	public List<Movement> findByProjects(Project project) {
+		EntityManagerFactory emf = null; //entityManagerFactory
+		EntityManager em = null; //entityManager
+		List<Movement> movements = new ArrayList<>();
+		try {
+			emf = Persistence.createEntityManagerFactory("projects");
+			em = emf.createEntityManager();
+			movements = em.createQuery("SELECT m FROM Movement m WHERE m.project = :project", Movement.class)
+						.setParameter("project", project)
+						.getResultList();
+		}finally {
+			if(emf!=null) emf.close();
+			if(em!=null) em.close();
 		}
 		return movements;
 	}
